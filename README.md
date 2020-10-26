@@ -17,8 +17,6 @@ You can also:
   - Fill the NA values with mean and mode of the columnns depending on the datatype
   - Find a model for every column with all other columns being the independent variables 
 
-> The overriding design goal for Markdown's
-> formatting syntax is to make it as readable
 ### Dependencies
 
 MAHA uses a number of open source projects to work properly:
@@ -56,10 +54,10 @@ $ python get-pip.py
 ### Development
 
 Developed By :-
-[Mithesh R] - GitHub 
-[Arth Akhouri] - GitHub
-[Heetansh Jhaveri] - GitHub
-[Ayaan Khan] - GitHub
+[Mithesh R], 
+[Arth Akhouri],
+[Heetansh Jhaveri],
+[Ayaan Khan]
 
 Want to contribute? Navigate to our GitHub for more information
 GitHub Repository - [MAHA]
