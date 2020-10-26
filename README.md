@@ -1,2 +1,0 @@
-# MAHA
-Demo
