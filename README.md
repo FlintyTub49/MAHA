@@ -1,8 +1,4 @@
-# Dillinger
-
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
-
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+# MAHA
 
 MAHA is an in-progress ETL package which uses machine learning to clean your dataset with one line command. Features of MAHA include :-
 
@@ -60,7 +56,7 @@ $ python get-pip.py
 ### Development
 
 Developed By :-
-[Mithesh R] - GitHub
+[Mithesh R] - GitHub 
 [Arth Akhouri] - GitHub
 [Heetansh Jhaveri] - GitHub
 [Ayaan Khan] - GitHub
