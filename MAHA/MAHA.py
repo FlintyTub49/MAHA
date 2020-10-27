@@ -19,15 +19,32 @@ warnings.filterwarnings('ignore')
 
 # In[49]:
 
+'''
+This project shows a package MAHA - a one stop data cleaning tool.        
+'''
 
 class MAHA:
+    '''
+    This class will represent a class MAHA to call the MAHA function - a one stop data cleaning function.
+    '''
     
     ''' Constructor '''
     def __init__(self):
+        '''
+        This function calls the sub functions.
+        '''
         None
     
     ''' Model Finding'''
     def model_calc(self, df):
+        '''
+        Calculates which model to be used for all the columns in the dataframe. 
+        
+        This creates a model on the input dataset. If the variable/column is of the datatype float it performs Linear Regression on the variable/column. If the variable/column is of the datatype int/category and has 2 unique values it performs Logistic Regression on the variable/column. If the variable/column is of the datatype int/category and has more than 2 unique values it performs Random Forest Classifier on the variable/column. 
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe on which the model is to be built.
+        '''
         modes = []
         temp = list(df.columns)
         print(temp)
@@ -49,12 +66,28 @@ class MAHA:
     
     ''' Splitting DataFrame '''
     def splitDataFrame(self, df):
+        '''
+        This function splits the dataframe into clean and unclean parts wrt NA values.
+        
+        This function checks for NA or Null values present in a dataframe and assigns those rows to a separate dataframe. The same is done for the case where NA or Null values are not present in a dataframe, The not-Null values are stored in another datadrame.
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe which is to be split into clean and unclean dataframes.
+        '''
         unclean = df[df.isnull().any(axis = 1) == True]
         clean = df[df.isnull().any(axis = 1) == False]
         return clean, unclean
     
     ''' Finding Index Column '''
     def indexColDetector(self, df):
+        '''
+        This function detects the index colum and drops it.
+        
+        This function checks for the Sum of rows (as range(rows + 1)) in a dataframe and the sum of the values of a column if they are similar. If yes, the column is dropped.
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe where index column is to be detected and dropped.
+        '''
         t1 = sum(range(df.shape[0] + 1))
         t2 = sum(range(df.shape[0]))
 
@@ -68,6 +101,20 @@ class MAHA:
     
     ''' Dropping Unnecesary Columns '''
     def dropColumns(self, df, obj_drop = 0.7, drop_cols = 0.6):
+        '''
+        This function determines which columns are to be dropped.
+        
+        This function checks if there are over 70% (of rows) unique values and/or over 60% Null values and/or only 1 unique value in an entire dataframe.
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe where columns are to be dropped.
+        
+        :type obj_drop: int
+        :param obj_drop: The ratio of unique values to number of rows.
+        
+        :type drop_cols: int
+        :param drop_cols: The ratio of Null values to number of rows.
+        '''
         dummy = df.copy()
         dummy = self.indexColDetector(dummy)
         print(dummy.columns)
@@ -86,6 +133,14 @@ class MAHA:
     
     ''' Replace Mean and Mode of Columns'''
     def replaceMeanMode(self, df):
+        '''
+        This function replaces the NA values with Mean or Mode, depending on the type of the variable passed on.
+        
+        This function checks the datatype if it is float or int/object to replace with mean and mode respectively.
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe where NA/Null values are to be replaced.
+        '''
         for i in list(df.columns):
             check = df[i].dtypes
 
@@ -100,6 +155,12 @@ class MAHA:
     
     ''' Finding Mean and Mode of Columns'''
     def findMeanMode(self, df):
+        '''
+        This function finds the mean and mode of the variables/columns of the dataframe
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe where mean/mode of columns are to be found.
+        '''
         meanMode = []
         for i in list(df.columns):
             check = df[i].dtypes
@@ -115,6 +176,18 @@ class MAHA:
     
     ''' The Main Function '''
     def MAHA(self, df, obj_drop = 0.7, drop_cols = 0.6):
+        '''
+        This function is the main function, consisting of all the sub functions. A one stop cleaning tool.
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe which is to be cleaned.
+        
+        :type obj_drop: int
+        :param obj_drop: The ratio of unique values to number of rows.
+        
+        :type drop_cols: int
+        :param drop_cols: The ratio of Null values to number of rows.
+        '''
         df = self.dropColumns(df, obj_drop, drop_cols)
         cols = list(df.columns)
 
