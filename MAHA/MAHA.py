@@ -3,11 +3,12 @@
 
 # ## Importing The Libraries
 
-# In[1]:
+# In[7]:
 
 
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.linear_model import LogisticRegression, LinearRegression
 from sklearn.metrics import r2_score, accuracy_score, mean_squared_error
 
@@ -17,11 +18,8 @@ warnings.filterwarnings('ignore')
 
 # ## The main Class
 
-# In[49]:
+# In[8]:
 
-'''
-This project shows a package MAHA - a one stop data cleaning tool.        
-'''
 
 class MAHA:
     '''
@@ -30,9 +28,6 @@ class MAHA:
     
     ''' Constructor '''
     def __init__(self):
-        '''
-        This function calls the sub functions.
-        '''
         None
     
     ''' Model Finding'''
@@ -44,7 +39,8 @@ class MAHA:
         
         :type df: pandas.core.frame.DataFrame
         :param df: The dataframe on which the model is to be built.
-        '''
+        '''    
+    
         modes = []
         temp = list(df.columns)
         print(temp)
@@ -74,6 +70,7 @@ class MAHA:
         :type df: pandas.core.frame.DataFrame
         :param df: The dataframe which is to be split into clean and unclean dataframes.
         '''
+        
         unclean = df[df.isnull().any(axis = 1) == True]
         clean = df[df.isnull().any(axis = 1) == False]
         return clean, unclean
@@ -88,6 +85,7 @@ class MAHA:
         :type df: pandas.core.frame.DataFrame
         :param df: The dataframe where index column is to be detected and dropped.
         '''
+        
         t1 = sum(range(df.shape[0] + 1))
         t2 = sum(range(df.shape[0]))
 
@@ -104,7 +102,9 @@ class MAHA:
         '''
         This function determines which columns are to be dropped.
         
-        This function checks if there are over 70% (of rows) unique values and/or over 60% Null values and/or only 1 unique value in an entire dataframe.
+        This function checks if there are over 70% (of rows) unique values 
+        
+        and/or over 60% Null values and/or only 1 unique value in an entire dataframe.
         
         :type df: pandas.core.frame.DataFrame
         :param df: The dataframe where columns are to be dropped.
@@ -115,6 +115,7 @@ class MAHA:
         :type drop_cols: int
         :param drop_cols: The ratio of Null values to number of rows.
         '''
+        
         dummy = df.copy()
         dummy = self.indexColDetector(dummy)
         print(dummy.columns)
@@ -131,6 +132,22 @@ class MAHA:
 
         return dummy
     
+    ''' Label Encoding Appropriate Columns '''
+    def label(self, df):
+        '''
+        This function automatically label encodes appropriate columns.
+        
+        :type df: pandas.core.frame.DataFrame
+        :param df: The dataframe where columns are to be dropped.'''
+        
+        le = LabelEncoder()
+        for col in list(df.columns):
+            if df[col].dtypes == 'object':
+                index = ~df[col].isna()
+                df.loc[index, col] = le.fit_transform(df.loc[index, col]) 
+                df[col]=df[col].astype('category')
+        return df
+    
     ''' Replace Mean and Mode of Columns'''
     def replaceMeanMode(self, df):
         '''
@@ -141,6 +158,7 @@ class MAHA:
         :type df: pandas.core.frame.DataFrame
         :param df: The dataframe where NA/Null values are to be replaced.
         '''
+        
         for i in list(df.columns):
             check = df[i].dtypes
 
@@ -161,6 +179,7 @@ class MAHA:
         :type df: pandas.core.frame.DataFrame
         :param df: The dataframe where mean/mode of columns are to be found.
         '''
+        
         meanMode = []
         for i in list(df.columns):
             check = df[i].dtypes
@@ -175,7 +194,7 @@ class MAHA:
         return meanMode
     
     ''' The Main Function '''
-    def MAHA(self, df, obj_drop = 0.7, drop_cols = 0.6):
+    def MAHA(self, df, obj_drop = 0.7, drop_cols = 0.6, scale = False):
         '''
         This function is the main function, consisting of all the sub functions. A one stop cleaning tool.
         
@@ -187,9 +206,14 @@ class MAHA:
         
         :type drop_cols: int
         :param drop_cols: The ratio of Null values to number of rows.
+        
+        :type scale: boolean
+        :param scale: If the dataset has to be scaled or not.
         '''
+        
         df = self.dropColumns(df, obj_drop, drop_cols)
         cols = list(df.columns)
+        df = self.label(df)
 
         meanMode = self.findMeanMode(df)
         cl, ucl = self.splitDataFrame(df)
@@ -225,6 +249,10 @@ class MAHA:
                         if f == z[g]:
                             df.iloc[f, i] = pred[k]
                             k = k + 1
-
+        
+        if scale:
+            sc = StandardScaler()
+            df = pd.DataFrame(sc.fit_transform(df))
+            
         return df
 
