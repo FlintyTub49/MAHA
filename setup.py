@@ -8,7 +8,7 @@ from distutils.core import setup
 setup(
   name = 'MAHA',
   packages = ['MAHA'],
-  version = '0.1',
+  version = '0.2',
   license='MIT',
   description = 'Performing ETL using Machine Learning',
   long_description = open('README.md', 'r').readlines(),
@@ -16,7 +16,7 @@ setup(
   author = 'Mithesh R, Arth Akhouri, Heetansh Jhaveri, Ayaan Khan',
   author_email = 'arthakhouri@gmail.com',
   url = 'https://github.com/user/FlintyTub49',
-  download_url = 'https://github.com/FlintyTub49/MAHA/archive/v_0.1.tar.gz',
+  download_url = 'https://github.com/FlintyTub49/MAHA/archive/v_0.2.tar.gz',
   keywords = ['ETL', 'Machine Learning', 'Regression', 'Pandas', 'Numpy'],
   install_requires=[
           'numpy',
