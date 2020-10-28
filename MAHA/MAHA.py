@@ -20,7 +20,7 @@ warnings.filterwarnings('ignore')
 # In[8]:
 
 
-class MetaClean:
+class metaClean:
     '''
     This class will contain all the functions required for one stop data cleaning.
 
