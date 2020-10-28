@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>MAHA package &#8212; MAHA 0.6 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="maha-package">
+<h1>MAHA package<a class="headerlink" href="#maha-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="maha-maha-module">
+<h2>MAHA.MAHA module<a class="headerlink" href="#maha-maha-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-MAHA">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-MAHA" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="MAHA.MetaClean">
+<em class="property">class </em><code class="sig-prename descclassname">MAHA.</code><code class="sig-name descname">MetaClean</code><a class="headerlink" href="#MAHA.MetaClean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class will contain all the functions required for one stop data cleaning.</p>
+<p>NOTE:
+All the columns have to be converted to the desired datatype before using any function from MAHA. The function does not change any dataype of any column.</p>
+<dl class="method">
+<dt id="MAHA.MetaClean.MAHA">
+<code class="sig-name descname">MAHA</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">obj_drop=0.7</em>, <em class="sig-param">drop_cols=0.6</em>, <em class="sig-param">scale=False</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.MAHA" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is the main function which calls all the functions to provide one line cleaning of a dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe which is to be cleaned.</p></li>
+<li><p><strong>obj_drop</strong> (<em>float</em>) – The ratio of unique object values to number of rows above which a column has to be dropped.</p></li>
+<li><p><strong>drop_cols</strong> (<em>float</em>) – The ratio of Null values to number of rows above which a column has to be dropped.</p></li>
+<li><p><strong>scale</strong> (<em>boolean</em>) – If the dataset has to be scaled or not.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MAHA.MetaClean.dropColumns">
+<code class="sig-name descname">dropColumns</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">obj_drop=0.7</em>, <em class="sig-param">drop_cols=0.6</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.dropColumns" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function determines which columns are to be dropped.</p>
+<p>This function checks if there are over 70% (of rows) unique values and/or over 60% Null values and/or only 1 unique value in an entire dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe from which columns are to be dropped.</p></li>
+<li><p><strong>obj_drop</strong> (<em>float</em>) – The ratio of unique object values to number of rows above which a column has to be dropped.</p></li>
+<li><p><strong>drop_cols</strong> (<em>float</em>) – The ratio of Null values to number of rows above which a column has to be dropped.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MAHA.MetaClean.findMeanMode">
+<code class="sig-name descname">findMeanMode</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.findMeanMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function finds the mean and mode of the variables/columns of the dataframe</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe where mean/mode of columns are to be found.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MAHA.MetaClean.indexColDetector">
+<code class="sig-name descname">indexColDetector</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.indexColDetector" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function detects the index colum and drops it.</p>
+<p>This function checks for the Sum of rows (as range(rows + 1)) in a dataframe and the sum of the values of a column if they are similar. If yes, the column is dropped.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe from which index column are to be detected and dropped.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MAHA.MetaClean.label">
+<code class="sig-name descname">label</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.label" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function automatically label encodes appropriate columns.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe from which columns are to be dropped.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MAHA.MetaClean.model_calc">
+<code class="sig-name descname">model_calc</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.model_calc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates which model to be used for all the columns in the dataframe.</p>
+<p>This creates a model on the input dataset. If the variable/column is of the datatype float it performs Linear Regression on the variable/column. If the variable/column is of the datatype int/category and has 2 unique values it performs Logistic Regression on the variable/column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe on whose columns the models have to be built.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MAHA.MetaClean.replaceMeanMode">
+<code class="sig-name descname">replaceMeanMode</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.replaceMeanMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function replaces the NA values with Mean or Mode, depending on the type of the variable passed on.</p>
+<p>This function checks the datatype if it is float or int/object to replace with mean and mode respectively.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe where NA/Null values are to be replaced.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="MAHA.MetaClean.splitDataFrame">
+<code class="sig-name descname">splitDataFrame</code><span class="sig-paren">(</span><em class="sig-param">df</em><span class="sig-paren">)</span><a class="headerlink" href="#MAHA.MetaClean.splitDataFrame" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function splits the dataframe into clean and unclean parts wrt NA values.</p>
+<p>This function checks for NA or Null values present in a dataframe and assigns those rows to a separate dataframe. The same is done for the case where NA or Null values are not present in a dataframe, The not-Null values are stored in another datadrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>df</strong> (<em>pandas.core.frame.DataFrame</em>) – The dataframe which is to be split into clean and unclean dataframes.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">MAHA</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Mithesh R, Arth Akhouri, Heetansh Jhaveri, Ayaan Khan.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.4.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/MAHA.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
