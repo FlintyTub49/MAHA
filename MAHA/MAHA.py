@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.linear_model import LogisticRegression, LinearRegression
-from sklearn.metrics import r2_score, accuracy_score, mean_squared_error
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -23,7 +22,10 @@ warnings.filterwarnings('ignore')
 
 class MAHA:
     '''
-    This class will represent a class MAHA to call the MAHA function - a one stop data cleaning function.
+    This class will contain all the functions required for one stop data cleaning.
+
+    NOTE:
+    All the columns have to be converted to the desired datatype before using any function from MAHA. The function does not change any dataype of any column.
     '''
     
     ''' Constructor '''
@@ -35,10 +37,10 @@ class MAHA:
         '''
         Calculates which model to be used for all the columns in the dataframe. 
         
-        This creates a model on the input dataset. If the variable/column is of the datatype float it performs Linear Regression on the variable/column. If the variable/column is of the datatype int/category and has 2 unique values it performs Logistic Regression on the variable/column. If the variable/column is of the datatype int/category and has more than 2 unique values it performs Random Forest Classifier on the variable/column. 
+        This creates a model on the input dataset. If the variable/column is of the datatype float it performs Linear Regression on the variable/column. If the variable/column is of the datatype int/category and has 2 unique values it performs Logistic Regression on the variable/column. 
         
         :type df: pandas.core.frame.DataFrame
-        :param df: The dataframe on which the model is to be built.
+        :param df: The dataframe on whose columns the models have to be built.
         '''    
     
         modes = []
@@ -83,7 +85,7 @@ class MAHA:
         This function checks for the Sum of rows (as range(rows + 1)) in a dataframe and the sum of the values of a column if they are similar. If yes, the column is dropped.
         
         :type df: pandas.core.frame.DataFrame
-        :param df: The dataframe where index column is to be detected and dropped.
+        :param df: The dataframe from which index column are to be detected and dropped.
         '''
         
         t1 = sum(range(df.shape[0] + 1))
@@ -102,18 +104,16 @@ class MAHA:
         '''
         This function determines which columns are to be dropped.
         
-        This function checks if there are over 70% (of rows) unique values 
-        
-        and/or over 60% Null values and/or only 1 unique value in an entire dataframe.
+        This function checks if there are over 70% (of rows) unique values and/or over 60% Null values and/or only 1 unique value in an entire dataframe.
         
         :type df: pandas.core.frame.DataFrame
-        :param df: The dataframe where columns are to be dropped.
+        :param df: The dataframe from which columns are to be dropped.
         
-        :type obj_drop: int
-        :param obj_drop: The ratio of unique values to number of rows.
+        :type obj_drop: float
+        :param obj_drop: The ratio of unique object values to number of rows above which a column has to be dropped.
         
-        :type drop_cols: int
-        :param drop_cols: The ratio of Null values to number of rows.
+        :type drop_cols: float
+        :param drop_cols: The ratio of Null values to number of rows above which a column has to be dropped.
         '''
         
         dummy = df.copy()
@@ -138,7 +138,7 @@ class MAHA:
         This function automatically label encodes appropriate columns.
         
         :type df: pandas.core.frame.DataFrame
-        :param df: The dataframe where columns are to be dropped.'''
+        :param df: The dataframe from which columns are to be dropped.'''
         
         le = LabelEncoder()
         for col in list(df.columns):
@@ -196,16 +196,16 @@ class MAHA:
     ''' The Main Function '''
     def MAHA(self, df, obj_drop = 0.7, drop_cols = 0.6, scale = False):
         '''
-        This function is the main function, consisting of all the sub functions. A one stop cleaning tool.
+        This function is the main function which calls all the functions to provide one line cleaning of a dataset.
         
         :type df: pandas.core.frame.DataFrame
         :param df: The dataframe which is to be cleaned.
         
-        :type obj_drop: int
-        :param obj_drop: The ratio of unique values to number of rows.
+        :type obj_drop: float
+        :param obj_drop: The ratio of unique object values to number of rows above which a column has to be dropped.
         
-        :type drop_cols: int
-        :param drop_cols: The ratio of Null values to number of rows.
+        :type drop_cols: float
+        :param drop_cols: The ratio of Null values to number of rows above which a column has to be dropped.
         
         :type scale: boolean
         :param scale: If the dataset has to be scaled or not.
@@ -255,4 +255,7 @@ class MAHA:
             df = pd.DataFrame(sc.fit_transform(df))
             
         return df
+
+if __name__ == '__main__':
+    None
 
