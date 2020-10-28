@@ -251,8 +251,12 @@ class MetaClean:
                             k = k + 1
         
         if scale:
-            sc = StandardScaler()
-            df = pd.DataFrame(sc.fit_transform(df))
+        for i in list(df.columns):
+            if df[i].dtypes == 'int64' or df[i].dtypes == 'float64':
+                sc = StandardScaler()
+                temp = df[[i]]
+                temp = sc.fit_transform(temp)
+                df[i] = temp
             
         return df
 
