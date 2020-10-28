@@ -4,5 +4,4 @@
 # In[1]:
 
 
-from MAHA.MAHA import MAHA
-
+from MAHA.MAHA import MetaClean
