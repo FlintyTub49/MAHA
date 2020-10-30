@@ -29,7 +29,7 @@ class MetaClean:
         :param df: The dataframe on whose columns the models have to be built.
         '''    
     
-        modes = []
+        models = []
         temp = list(df.columns)
         print(temp)
         for i in temp:
@@ -39,14 +39,14 @@ class MetaClean:
             if df[i].dtype == 'int64' or df[i].dtype == 'float64':
                 lr = LinearRegression(normalize = True)
                 lr.fit(x, y)
-                modes.append(lr)
+                models.append(lr)
 
             elif df[i].dtype == 'category' or df[i].dtype == 'object':
                 lg = LogisticRegression()
                 lg.fit(x, y)
-                modes.append(lg)
+                models.append(lg)
 
-        return modes
+        return models
     
     ''' Splitting DataFrame '''
     def splitDataFrame(self, df):
