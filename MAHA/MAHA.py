@@ -1,11 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# ## Importing The Libraries
-
-# In[7]:
-
-
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import StandardScaler, LabelEncoder
@@ -13,12 +5,6 @@ from sklearn.linear_model import LogisticRegression, LinearRegression
 
 import warnings
 warnings.filterwarnings('ignore')
-
-
-# ## The main Class
-
-# In[8]:
-
 
 class MetaClean:
     '''
