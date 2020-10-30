@@ -29,7 +29,7 @@ class MetaClean:
         :param df: The dataframe on whose columns the models have to be built.
         '''    
     
-        models = []
+        modes = []
         temp = list(df.columns)
         print(temp)
         for i in temp:
@@ -39,12 +39,12 @@ class MetaClean:
             if df[i].dtype == 'int64' or df[i].dtype == 'float64':
                 lr = LinearRegression(normalize = True)
                 lr.fit(x, y)
-                models.append(lr)
+                modes.append(lr)
 
             elif df[i].dtype == 'category' or df[i].dtype == 'object':
                 lg = LogisticRegression()
                 lg.fit(x, y)
-                models.append(lg)
+                modes.append(lg)
 
         return models
     
